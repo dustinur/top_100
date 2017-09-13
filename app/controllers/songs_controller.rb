@@ -9,7 +9,8 @@ class SongsController < ApplicationController
 
   def new
     @song = Song.new
-    @song.order( 'rank DESC' )
+    #@song.order( 'rank DESC' )
+    render partial: "form"
   end
 
   def create
@@ -23,13 +24,20 @@ class SongsController < ApplicationController
   end
 
   def edit
+    render partial: "form"
   end
 
   def update
-
+    if @song.update(song_params)
+      redirect_to song_path(@song)
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @song.destroy
+    redirect_to root_path
   end
 
   private
@@ -37,5 +45,13 @@ class SongsController < ApplicationController
       @song = Song.find(params[:id])
     end
 
+    def song_params
+      params.require(:song).permit(
+        :title,
+        :artist,
+        :rank,
+        :genre
+      )
+    end
 
 end
