@@ -5,9 +5,10 @@
 <ul>
   <% @songs.each do |song| %>
     <li>
+      <%= link_to song.rank, song_path(song) %> <br />
       <%= link_to song.title, song_path(song) %> <br />
-      <%= link_to song.artist, song_path(song) %>
-      <%= link_to song.rank, song_path(song) %>
+      <%= link_to song.artist, song_path(song) %><br />
+      <br />
     </li>
   <% end %>
 </ul>
